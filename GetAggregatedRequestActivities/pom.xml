@@ -28,13 +28,21 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
         <cxf.version>2.5.1</cxf.version>
     </properties>
 
-	<dependencies>
+		<repositories>
+			<repository>
+				<id>jboss</id>
+				<url>https://repository.jboss.org/</url>
+			</repository>
+		</repositories>
+
+
+		<dependencies>
 
         <dependency>
 		    <groupId>se.skltp.agp</groupId>
 		    <artifactId>agp-core</artifactId>
 		    <version>${skltp.agp.version}</version>
-        </dependency>
+    		</dependency>
 
         <dependency>
           <groupId>org.soitoolkit.commons.components</groupId>
