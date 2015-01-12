@@ -18,7 +18,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
 		<groupId>se.skltp.aggregatingservices.crm.requeststatus</groupId>
 		<artifactId>GetAggregatedRequestActivities-parent</artifactId>
-		<version>1.0.1-RC6-SNAPSHOT</version>
+		<version>1.0.1</version>
     <packaging>pom</packaging>
     <name>GetAggregatedRequestActivities-parent</name>
 
@@ -26,7 +26,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 			<url>https://github.com/skltp-aggregerandetjanster/riv.crm.requeststatus.GetAggregatedRequestActivities</url>
 			<connection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.requeststatus.GetAggregatedRequestActivities.git</connection>
 			<developerConnection>scm:git:git://github.com/skltp-aggregerandetjanster/riv.crm.requeststatus.GetAggregatedRequestActivities.git</developerConnection>
-			<tag>HEAD</tag>
+			<tag>v1.0.1</tag>
 		</scm>
 
     <modules>
