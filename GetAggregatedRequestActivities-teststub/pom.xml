@@ -20,13 +20,13 @@
  <dependencies>
   <!-- dependencies to the integration component that contains the services to stub -->
   <dependency>
-   <groupId>se.skltp.aggregatingservices.crm.requeststatus</groupId>
+   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
    <artifactId>GetAggregatedRequestActivities</artifactId>
    <version>${project.version}</version>
    <type>test-jar</type>
   </dependency>
   <dependency>
-   <groupId>se.skltp.aggregatingservices.crm.requeststatus</groupId>
+   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
    <artifactId>GetAggregatedRequestActivities</artifactId>
    <version>${project.version}</version>
    <classifier>core</classifier>

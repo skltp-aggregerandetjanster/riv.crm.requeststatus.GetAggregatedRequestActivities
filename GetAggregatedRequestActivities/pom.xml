@@ -43,7 +43,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   </dependency>
 
   <dependency>
-   <groupId>se.skltp.aggregatingservices.crm.requeststatus</groupId>
+   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
    <artifactId>GetAggregatedRequestActivities-schemas</artifactId>
    <version>${project.version}</version>
   </dependency>
