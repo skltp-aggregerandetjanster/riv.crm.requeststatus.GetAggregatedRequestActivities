@@ -1,14 +1,18 @@
 package se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_1;
+import static se.skltp.agp.test.producer.TestProducerDb.TEST_LOGICAL_ADDRESS_2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
 import se.riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
@@ -16,7 +20,6 @@ import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.Fi
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.service.api.RequestListFactory;
-import static se.skltp.agp.test.producer.TestProducerDb.*;
 
 public class RequestListFactoryTest {
 	
@@ -83,11 +86,11 @@ public class RequestListFactoryTest {
 	@Test
 	public void createRequestList(){
 		FindContentResponseType findContentResponse = new FindContentResponseType();
-		findContentResponse.getEngagement().add(createEngagement(TEST_LOGICAL_ADDRESS_1, TEST_RR_ID_MANY_HITS_NO_ERRORS));
-		findContentResponse.getEngagement().add(createEngagement(TEST_LOGICAL_ADDRESS_2, TEST_RR_ID_MANY_HITS_NO_ERRORS));
+		findContentResponse.getEngagement().add(createEngagement(TEST_LOGICAL_ADDRESS_1, "121212121212"));
+		findContentResponse.getEngagement().add(createEngagement(TEST_LOGICAL_ADDRESS_2, "121212121212"));
 		
 		GetRequestActivitiesType originalRequest = new GetRequestActivitiesType();
-		originalRequest.setSubjectOfCareId(TEST_RR_ID_MANY_HITS_NO_ERRORS);
+		originalRequest.setSubjectOfCareId("121212121212");
 		originalRequest.getCareUnitId().add("CAREUNITID_1");
 		originalRequest.getTypeOfRequest().add(FYSIOLOG);
 		
