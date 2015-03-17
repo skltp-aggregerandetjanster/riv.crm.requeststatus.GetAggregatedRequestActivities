@@ -21,7 +21,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
  <name>GetAggregatedRequestActivities</name>
 
  <properties>
-  <skltp.agp.version>1.2.1</skltp.agp.version>
+  <skltp.agp.version>1.2.3</skltp.agp.version>
 
   <!-- Properties for generating code from XML Schemas (JAX-WS) -->
   <schema.path>${basedir}/src/main/resources/schemas</schema.path>
@@ -105,7 +105,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
   </resources>
 
   <plugins>
-  
+
    <plugin>
     <!-- Add mule-nature to the eclipse-.project-file -->
     <artifactId>maven-eclipse-plugin</artifactId>
@@ -135,7 +135,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
        <artifactId>devkit</artifactId>
       </inclusion>
      </inclusions>
-     
+
      <exclusions>
 
       <!-- xercesImpl is endorsed in MULE_HOME/lib/endorsed, see issue 274 -->
@@ -284,5 +284,5 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
    </build>
   </profile>
  </profiles>
-    
+
 </project>

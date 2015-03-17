@@ -14,7 +14,7 @@
  <name>GetAggregatedRequestActivities-teststub</name>
 
  <properties>
-  <skltp.agp.version>1.2.1</skltp.agp.version>
+  <skltp.agp.version>1.2.3</skltp.agp.version>
  </properties>
 
  <dependencies>
@@ -112,7 +112,7 @@
        <groupId>org.safehaus.jug</groupId>
        <artifactId>jug.osgi</artifactId>
       </exclusion>
-     
+
       <!-- activemq needs to be added manually to MULE_HOME/lib/user if required, see issue 283 -->
       <exclusion>
        <groupId>org.apache.activemq</groupId>
@@ -167,7 +167,7 @@
          <goal>java</goal>
         </goals>
         <configuration>
-         <mainClass> se.skltp.aggregatingservices.riv.crm.requeststatus.RequestActivitiesMuleServer</mainClass>
+         <mainClass>se.skltp.aggregatingservices.riv.crm.requeststatus.RequestActivitiesMuleServer</mainClass>
          <classpathScope>test</classpathScope>
         </configuration>
        </execution>

@@ -5,9 +5,9 @@ import javax.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.riv.crm.requeststatus.getrequestactivities.v1.rivtabp21.GetRequestActivitiesResponderInterface;
-import se.riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import se.riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
+import riv.crm.requeststatus.getrequestactivities.v1.rivtabp21.GetRequestActivitiesResponderInterface;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
 import se.skltp.agp.test.producer.TestProducerDb;
 
 @WebService(serviceName = "GetRequestActivitiesResponderService", portName = "GetRequestActivitiesResponderPort", targetNamespace = "urn:riv:crm:requeststatus:GetRequestActivities:1:rivtabp21", name = "GetRequestActivitiesInteraction")

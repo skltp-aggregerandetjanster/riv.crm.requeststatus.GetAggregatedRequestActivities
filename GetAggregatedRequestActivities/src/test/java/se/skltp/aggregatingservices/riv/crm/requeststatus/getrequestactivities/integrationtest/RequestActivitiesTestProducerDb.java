@@ -3,8 +3,8 @@ package se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities.
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import se.riv.crm.requeststatus.v1.RequestActivityType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus.v1.RequestActivityType;
 import se.skltp.agp.test.producer.TestProducerDb;
 
 public class RequestActivitiesTestProducerDb extends TestProducerDb {
@@ -20,10 +20,10 @@ public class RequestActivitiesTestProducerDb extends TestProducerDb {
 		}
 		return response;
 	}
-	
+
 	@Override
 	public Object createResponseItem(String logicalAddress, String registeredResidentId, String businessObjectId, String time) {
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("Created one response item for logical-address {}, registeredResidentId {} and businessObjectId {}",
 				new Object[] {logicalAddress, registeredResidentId, businessObjectId});
@@ -43,7 +43,7 @@ public class RequestActivitiesTestProducerDb extends TestProducerDb {
 		response.setReceivingPersonName("ReceivingPersonName");
 		response.setReceivingOrganizationalUnitId("ReceivingOrganizationalUnitId");
 		response.setReceivingOrganizationalUnitDescription("ReceivingOrganizationalUnitDescription");
-		
+
 		return response;
 	}
 }

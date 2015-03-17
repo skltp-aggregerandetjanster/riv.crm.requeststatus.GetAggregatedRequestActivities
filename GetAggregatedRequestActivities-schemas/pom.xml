@@ -59,17 +59,17 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
           <extraarg>-p</extraarg>
           <extraarg>http://www.w3.org/2005/08/addressing=org.w3c.addressing.v1</extraarg>
           <extraarg>-p</extraarg>
-          <extraarg>urn:riv:crm:requeststatus:GetRequestActivitiesResponder:1=se.riv.crm.requeststatus.getrequestactivitiesresponder.v1</extraarg>
+          <extraarg>urn:riv:crm:requeststatus:GetRequestActivitiesResponder:1=riv.crm.requeststatus.getrequestactivitiesresponder.v1</extraarg>
           <extraarg>-p</extraarg>
-          <extraarg>urn:riv:crm:requeststatus:GetRequestActivitiesInitiator:1=se.riv.crm.requeststatus.getrequestactivitiesinitiator.v1</extraarg>
+          <extraarg>urn:riv:crm:requeststatus:GetRequestActivitiesInitiator:1=riv.crm.requeststatus.getrequestactivitiesinitiator.v1</extraarg>
           <extraarg>-p</extraarg>
-          <extraarg>urn:riv:crm:requeststatus:GetRequestActivities:1:rivtabp21=se.riv.crm.requeststatus.getrequestactivities.v1.rivtabp21</extraarg>
+          <extraarg>urn:riv:crm:requeststatus:GetRequestActivities:1:rivtabp21=riv.crm.requeststatus.getrequestactivities.v1.rivtabp21</extraarg>
           <extraarg>-p</extraarg>
-          <extraarg>urn:riv:itintegration:registry:1=se.riv.itintegration.registry.v1</extraarg>
+          <extraarg>urn:riv:itintegration:registry:1=riv.itintegration.registry.v1</extraarg>
           <extraarg>-p</extraarg>
-          <extraarg>urn:riv:crm:requeststatus:1=se.riv.crm.requeststatus.v1</extraarg>
+          <extraarg>urn:riv:crm:requeststatus:1=riv.crm.requeststatus.v1</extraarg>
           <extraarg>-p</extraarg>
-          <extraarg>urn:riv:interoperability:headers:1=se.riv.interoperability.headers.v1</extraarg>
+          <extraarg>urn:riv:interoperability:headers:1=riv.interoperability.headers.v1</extraarg>
          </extraargs>
         </wsdloption>
        </wsdlOptions>
