@@ -7,9 +7,9 @@ import javax.xml.ws.Holder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import se.riv.crm.requeststatus.getrequestactivities.v1.rivtabp21.GetRequestActivitiesResponderInterface;
-import se.riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import se.riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
+import riv.crm.requeststatus.getrequestactivities.v1.rivtabp21.GetRequestActivitiesResponderInterface;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
 import se.skltp.aggregatingservices.riv.crm.requeststatus.RequestActivitiesMuleServer;
 import se.skltp.agp.test.consumer.AbstractTestConsumer;
 import se.skltp.agp.test.consumer.SoapHeaderCxfInterceptor;
@@ -32,7 +32,7 @@ public class RequestActivitiesTestConsumer extends AbstractTestConsumer<GetReque
 	}
 
 	public RequestActivitiesTestConsumer(String serviceAddress, String senderId, String originalConsumerHsaId) {
-	    
+
 		// Setup a web service proxy for communication using HTTPS with Mutual Authentication
 		super(GetRequestActivitiesResponderInterface.class, serviceAddress, senderId, originalConsumerHsaId);
 	}
@@ -40,13 +40,13 @@ public class RequestActivitiesTestConsumer extends AbstractTestConsumer<GetReque
 	public void callService(String logicalAddress, String registeredResidentId, Holder<ProcessingStatusType> processingStatusHolder, Holder<GetRequestActivitiesResponseType> responseHolder) {
 
 		log.debug("Calling GetRequestActivities-soap-service with Registered Resident Id = {}", registeredResidentId);
-		
+
 		GetRequestActivitiesType request = new GetRequestActivitiesType();
 		request.setSubjectOfCareId(registeredResidentId);
 
 		GetRequestActivitiesResponseType response = _service.getRequestActivities(logicalAddress, request);
 		responseHolder.value = response;
-		
+
 		processingStatusHolder.value = SoapHeaderCxfInterceptor.getLastFoundProcessingStatus();
 	}
 }
