@@ -13,7 +13,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
  <parent>
   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
   <artifactId>GetAggregatedRequestActivities-parent</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3-SNAPSHOT</version>
  </parent>
 
  <artifactId>GetAggregatedRequestActivities</artifactId>
@@ -22,10 +22,6 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
  <properties>
   <skltp.agp.version>1.2.3</skltp.agp.version>
-
-  <!-- Properties for generating code from XML Schemas (JAX-WS) -->
-  <schema.path>${basedir}/src/main/resources/schemas</schema.path>
-  <cxf.version>2.5.1</cxf.version>
  </properties>
 
  <repositories>

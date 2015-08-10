@@ -1,8 +1,6 @@
 package se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +8,6 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
 import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
 import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
@@ -21,7 +18,6 @@ import se.skltp.agp.service.api.RequestListFactory;
 public class RequestListFactoryImpl implements RequestListFactory {
 
 	private static final Logger log = LoggerFactory.getLogger(RequestListFactoryImpl.class);
-	private static final ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("YYYYMMDDhhmmss");
 
 	/**
 	 * Filtrera svarsposter från i EI (ei-engagement) baserat parametrar i GetRequestActivities requestet (req).
@@ -44,8 +40,6 @@ public class RequestListFactoryImpl implements RequestListFactory {
 	public List<Object[]> createRequestList(QueryObject qo, FindContentResponseType src) {
 
 		GetRequestActivitiesType originalRequest = (GetRequestActivitiesType)qo.getExtraArg();
-		Date reqFrom = parseTs(originalRequest.getFromDate());
-		Date reqTo   = parseTs(originalRequest.getToDate());
 		List<String> reqCategories = originalRequest.getTypeOfRequest();
 
 		FindContentResponseType eiResp = (FindContentResponseType)src;
@@ -58,8 +52,7 @@ public class RequestListFactoryImpl implements RequestListFactory {
 		for (EngagementType inEng : inEngagements) {
 
 			// Filter
-			if (isBetween(reqFrom, reqTo, inEng.getMostRecentContent()) &&
-				isCorrectCategory(reqCategories, inEng.getCategorization())) {
+			if (isCorrectCategory(reqCategories, inEng.getCategorization())) {
 
 				// Add pdlUnit to source system
 				log.debug("Add SS: {} for PDL unit: {}", inEng.getSourceSystem(), inEng.getLogicalAddress());
@@ -105,33 +98,6 @@ public class RequestListFactoryImpl implements RequestListFactory {
 		if(reqTypeOfRequestList == null || reqTypeOfRequestList.isEmpty()) return true;
 
 		return reqTypeOfRequestList.contains(categorization);
-	}
-
-	Date parseTs(String ts) {
-		try {
-			if (ts == null || ts.length() == 0) {
-				return null;
-			} else {
-				return df.parse(ts);
-			}
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	boolean isBetween(Date from, Date to, String tsStr) {
-		try {
-			if (log.isDebugEnabled()) {
-				log.debug("Is {} between {} and ", new Object[] {tsStr, from, to});
-			}
-
-			Date ts = df.parse(tsStr);
-			if (from != null && from.after(ts)) return false;
-			if (to != null && to.before(ts)) return false;
-			return true;
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	void addPdlUnitToSourceSystem(Map<String, List<String>> sourceSystem_pdlUnitList_map, String sourceSystem, String pdlUnitId) {
