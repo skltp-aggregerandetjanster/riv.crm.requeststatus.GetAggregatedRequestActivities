@@ -6,16 +6,12 @@
  <parent>
   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
   <artifactId>GetAggregatedRequestActivities-parent</artifactId>
-  <version>1.0.3-RC2-SNAPSHOT</version>
+  <version>1.0.5-RC1-SNAPSHOT</version>
  </parent>
 
  <artifactId>GetAggregatedRequestActivities-teststub</artifactId>
  <packaging>mule</packaging>
  <name>GetAggregatedRequestActivities-teststub</name>
-
- <properties>
-  <skltp.agp.version>1.2.3</skltp.agp.version>
- </properties>
 
  <dependencies>
   <!-- dependencies to the integration component that contains the services to stub -->
