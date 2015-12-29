@@ -15,7 +15,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
  <parent>
   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
   <artifactId>GetAggregatedRequestActivities-parent</artifactId>
-  <version>1.0.5-RC1-SNAPSHOT</version>
+  <version>1.1.0-RC1-SNAPSHOT</version>
  </parent>
 
  <artifactId>GetAggregatedRequestActivities</artifactId>
@@ -50,7 +50,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
   <dependency>
    <groupId>org.soitoolkit.commons.poms.mule-dependencies</groupId>
-   <artifactId>soitoolkit-mule-3.3.1-dependencies</artifactId>
+   <artifactId>soitoolkit-mule-${mule.version}-dependencies</artifactId>
    <version>${soitoolkit.version}</version>
    <type>pom</type>
   </dependency>
@@ -204,7 +204,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
       -->
      <classifier>core</classifier>
      <excludes>
-      <exclude>log4j.xml</exclude>
+      <exclude>log4j2.xml</exclude>
      </excludes>
     </configuration>
     <executions>
@@ -226,13 +226,13 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
        <goal>copy-resources</goal>
       </goals>
       <configuration>
+       <overwrite>true</overwrite>      
        <outputDirectory>${project.build.outputDirectory}</outputDirectory>
        <resources>
         <resource>
          <directory>src/environment</directory>
          <includes>
-          <include>log4j.xml</include>
-          <include>log4j.dtd</include>
+          <include>log4j2.xml</include>
          </includes>
         </resource>
        </resources>
