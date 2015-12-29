@@ -6,14 +6,16 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 [soi-toolkit.gen.createDate=2012-09-25T00:15:13.781+02:00]
 [soi-toolkit.gen.artifactId=GetAggregatedRequestActivities]
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
  <modelVersion>4.0.0</modelVersion>
 
  <parent>
   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
   <artifactId>GetAggregatedRequestActivities-parent</artifactId>
-  <version>1.0.5-RC1-SNAPSHOT</version>
+  <version>1.1.0-RC1-SNAPSHOT</version>
  </parent>
 
  <artifactId>GetAggregatedRequestActivities</artifactId>
@@ -48,7 +50,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
   <dependency>
    <groupId>org.soitoolkit.commons.poms.mule-dependencies</groupId>
-   <artifactId>soitoolkit-mule-3.3.1-dependencies</artifactId>
+   <artifactId>soitoolkit-mule-${mule.version}-dependencies</artifactId>
    <version>${soitoolkit.version}</version>
    <type>pom</type>
   </dependency>
@@ -115,7 +117,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <groupId>org.mule.tools</groupId>
     <artifactId>maven-mule-plugin</artifactId>
     <extensions>true</extensions>
-    <!-- Include mule-dependencies that doesn't come with Mule 3.x otherwise we can't install to a vanilla Mule 3.x installation -->
+    <!-- Include mule-dependencies that don't come with Mule 3.x otherwise we can't install to a vanilla Mule 3.x installation -->
     <configuration>
      <inclusions>
       <inclusion>
@@ -202,7 +204,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
       -->
      <classifier>core</classifier>
      <excludes>
-      <exclude>log4j.xml</exclude>
+      <exclude>log4j2.xml</exclude>
      </excludes>
     </configuration>
     <executions>
@@ -224,13 +226,13 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
        <goal>copy-resources</goal>
       </goals>
       <configuration>
+       <overwrite>true</overwrite>      
        <outputDirectory>${project.build.outputDirectory}</outputDirectory>
        <resources>
         <resource>
          <directory>src/environment</directory>
          <includes>
-          <include>log4j.xml</include>
-          <include>log4j.dtd</include>
+          <include>log4j2.xml</include>
          </includes>
         </resource>
        </resources>
@@ -246,7 +248,10 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
  <profiles>
   <profile>
    <id>muleServer</id>
-   <!-- Start mule server with the command "mvn -PmuleServer" or "mvn -PmuleServer -Dexec.args="${artifaceId}-config.xml"" if you want to override the default config-file -->
+   <!-- Start mule server with the command 
+          mvn -PmuleServer or 
+          mvn -PmuleServer -Dexec.args="${artifaceId}-config.xml"
+        if you want to override the default config-file -->
    <build>
     <defaultGoal>test</defaultGoal>
     <plugins>
