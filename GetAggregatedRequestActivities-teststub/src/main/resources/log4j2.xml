@@ -48,7 +48,7 @@
 
 
 		<AsyncLogger name="se.skltp.agp" level="INFO"/>
-		<AsyncLogger name="se.skltp.aggregatingservices.riv.crm.requeststatus.getaggregatedrequestactivities" level="INFO"/>
+		<AsyncLogger name="se.skltp.se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities" level="INFO"/>
 		<!-- Message logging using soi-toolkit LogTransformer class -->
 		<AsyncLogger name="org.soitoolkit.commons.mule.messageLogger" level="INFO"/>
 
