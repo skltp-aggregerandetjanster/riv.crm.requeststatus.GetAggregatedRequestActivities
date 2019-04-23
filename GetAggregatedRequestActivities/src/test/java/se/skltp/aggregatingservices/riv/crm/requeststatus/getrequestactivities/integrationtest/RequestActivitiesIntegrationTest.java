@@ -50,16 +50,19 @@ import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
 import riv.crm.requeststatus.v1.RequestActivityType;
 import se.skltp.aggregatingservices.riv.crm.requeststatus.RequestActivitiesMuleServer;
-import se.skltp.agp.cache.TakCacheBean;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.test.consumer.AbstractAggregateIntegrationTest;
-import se.skltp.agp.test.consumer.ExpectedTestData;
+import se.skltp.agp.test.consumer.TestData;
 import se.skltp.agp.test.producer.EngagemangsindexTestProducerLogger;
 import se.skltp.agp.test.producer.TestProducerLogger;
 
 public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrationTest {
 
+    public RequestActivitiesIntegrationTest() {
+        super(rb.getString("TAK_TJANSTEKONTRAKT"));
+    }
+    
 	private static final Logger log = LoggerFactory.getLogger(RequestActivitiesIntegrationTest.class);
 
     private static final RecursiveResourceBundle rb = new RecursiveResourceBundle("GetAggregatedRequestActivities-config");
@@ -80,12 +83,6 @@ public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrati
 			"teststub-services/engagemangsindex-teststub-service.xml," +
 			"teststub-services/service-producer-teststub-service.xml," +
 			"teststub-non-default-services/tak-teststub-service.xml";
-	}
-	
-	@Before
-	public void loadTakCache() throws Exception {
-	final TakCacheBean takCache = (TakCacheBean) muleContext.getRegistry().lookupObject("takCacheBean");
-	takCache.updateCache();
 	}
 	
 	/**
@@ -133,7 +130,7 @@ public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrati
     @Test
     public void test_ok_one_hit() {
 
-        List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 2, new ExpectedTestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
+        List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_ONE_HIT, 2, new TestData(TEST_BO_ID_ONE_HIT, TEST_LOGICAL_ADDRESS_1));
 
         assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
     }
@@ -146,9 +143,9 @@ public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrati
 
         // Setup call and verify the response, expect one booking from source #1, two from source #2 and a timeout from source #3
         List<ProcessingStatusRecordType> statusList = doTest(TEST_RR_ID_MANY_HITS, 3,
-            new ExpectedTestData(TEST_BO_ID_MANY_HITS_1, TEST_LOGICAL_ADDRESS_1),
-            new ExpectedTestData(TEST_BO_ID_MANY_HITS_2, TEST_LOGICAL_ADDRESS_2),
-            new ExpectedTestData(TEST_BO_ID_MANY_HITS_3, TEST_LOGICAL_ADDRESS_2));
+            new TestData(TEST_BO_ID_MANY_HITS_1, TEST_LOGICAL_ADDRESS_1),
+            new TestData(TEST_BO_ID_MANY_HITS_2, TEST_LOGICAL_ADDRESS_2),
+            new TestData(TEST_BO_ID_MANY_HITS_3, TEST_LOGICAL_ADDRESS_2));
 
         // Verify the Processing Status, expect ok from source system #1 and #2 but a timeout from #3
         assertProcessingStatusDataFromSource(statusList.get(0), TEST_LOGICAL_ADDRESS_1);
@@ -176,7 +173,7 @@ public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrati
      * @param testData
      * @return
      */
-    private List<ProcessingStatusRecordType> doTest(String registeredResidentId, int expectedProcessingStatusSize, ExpectedTestData... testData) {
+    private List<ProcessingStatusRecordType> doTest(String registeredResidentId, int expectedProcessingStatusSize, TestData... testData) {
         return doTest(registeredResidentId, SAMPLE_SENDER_ID, SAMPLE_ORIGINAL_CONSUMER_HSAID, SAMPLE_CORRELATION_ID, expectedProcessingStatusSize, testData);
     }
 
@@ -190,7 +187,7 @@ public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrati
      * @param testData
      * @return
      */
-    private List<ProcessingStatusRecordType> doTest(String registeredResidentId, String senderId, String originalConsumerHsaId, String correlationId, int expectedProcessingStatusSize, ExpectedTestData... testData) {
+    private List<ProcessingStatusRecordType> doTest(String registeredResidentId, String senderId, String originalConsumerHsaId, String correlationId, int expectedProcessingStatusSize, TestData... testData) {
 
         // Setup and perform the call to the web service
         RequestActivitiesTestConsumer consumer = new RequestActivitiesTestConsumer(DEFAULT_SERVICE_ADDRESS, senderId, originalConsumerHsaId, correlationId);

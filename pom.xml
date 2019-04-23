@@ -18,20 +18,20 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
 
  <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
  <artifactId>GetAggregatedRequestActivities-parent</artifactId>
- <version>1.2.2</version>
+ <version>1.2.4-SNAPSHOT</version>
  <packaging>pom</packaging>
  <name>GetAggregatedRequestActivities-parent</name>
 
  <properties>
    <mule.version>3.7.0</mule.version> 
-   <skltp.agp.version>2.3.3</skltp.agp.version>
+   <skltp.agp.version>2.3.4</skltp.agp.version>
  </properties>
 
  <scm>
   <url>http://github.com/skltp-aggregerandetjanster/riv.crm.requeststatus.GetAggregatedRequestActivities</url>
   <connection>scm:git:https://github.com:443/skltp-aggregerandetjanster/riv.crm.requeststatus.GetAggregatedRequestActivities.git</connection>
   <developerConnection>scm:git:https://github.com:443/skltp-aggregerandetjanster/riv.crm.requeststatus.GetAggregatedRequestActivities.git</developerConnection>
-  <tag>v1.2.2</tag>
+  <tag>HEAD</tag>
  </scm>
 
  <modules>
