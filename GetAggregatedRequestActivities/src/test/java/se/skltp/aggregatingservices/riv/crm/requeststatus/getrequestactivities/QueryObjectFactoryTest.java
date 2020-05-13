@@ -33,11 +33,12 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.ObjectFactory;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.ObjectFactory;
 import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
 import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.test.producer.TestProducerDb;
+import static se.skltp.aggregatingservices.riv.crm.requeststatus.RequestUtil.*;
 
 
 
@@ -53,16 +54,15 @@ public class QueryObjectFactoryTest {
 
 	@Test
 	public void createQueryObjectAllRequestParametersSet() throws Exception{
-
+		
 		//Create request
 		GetRequestActivitiesType request = new GetRequestActivitiesType();
-		request.setFromDate("ÅÅÅÅMMDDttmmss");
-		request.setSubjectOfCareId(TestProducerDb.TEST_RR_ID_ONE_HIT);
-		request.setToDate("ÅÅÅÅMMDDttmmss");
-		request.getCareUnitId().add("CareUnit1");
-		request.getCareUnitId().add("CareUnit2");
-		request.getTypeOfRequest().add("TypeOfRequest1");
-		request.getTypeOfRequest().add("TypeOfRequest2");
+		request.setDatePeriod(createDatePeriod("ÅÅÅÅMMDDttmmss", "ÅÅÅÅMMDDttmmss"));
+		request.setPatientId(createII("", TestProducerDb.TEST_RR_ID_ONE_HIT));
+		request.getCareUnitHSAId().add(createII("","CareUnit1"));
+		request.getCareUnitHSAId().add(createII("","CareUnit2"));
+		request.getTypeOfRequest().add(createCV("TypeOfRequest1"));
+		request.getTypeOfRequest().add(createCV("TypeOfRequest2"));
 
 		//Create FindContent request
 		QueryObject queryObject = testObject.createQueryObject(createNode(request));
@@ -100,4 +100,6 @@ public class QueryObjectFactoryTest {
 		marshaller.marshal(requestJaxb, node);
 		return node;
 	}
+	
+
 }

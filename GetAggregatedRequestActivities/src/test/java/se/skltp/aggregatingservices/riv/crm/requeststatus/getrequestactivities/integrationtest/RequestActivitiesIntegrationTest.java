@@ -47,8 +47,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.util.RecursiveResourceBundle;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import riv.crm.requeststatus.v1.RequestActivityType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus._2.RequestActivityType;
 import se.skltp.aggregatingservices.riv.crm.requeststatus.RequestActivitiesMuleServer;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusRecordType;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
@@ -203,7 +203,7 @@ public class RequestActivitiesIntegrationTest extends AbstractAggregateIntegrati
 
         for (int i = 0; i < testData.length; i++) {
             final RequestActivityType responseElement = response.getRequestActivity().get(i);
-            assertEquals(registeredResidentId, responseElement.getSubjectOfCareId());
+            assertEquals(registeredResidentId, responseElement.getHeader().getAccessControlHeader().getOriginalPatientId().getExtension());
         }
 
 

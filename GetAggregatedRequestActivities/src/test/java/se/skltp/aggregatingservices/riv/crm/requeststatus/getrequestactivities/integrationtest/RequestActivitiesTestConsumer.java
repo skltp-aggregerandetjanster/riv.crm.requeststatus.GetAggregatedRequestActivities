@@ -26,13 +26,14 @@ import javax.xml.ws.Holder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import riv.crm.requeststatus.getrequestactivities.v1.rivtabp21.GetRequestActivitiesResponderInterface;
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
+import riv.crm.requeststatus.getrequestactivities.v2.rivtabp21.GetRequestActivitiesResponderInterface;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesType;
 import se.skltp.aggregatingservices.riv.crm.requeststatus.RequestActivitiesMuleServer;
 import se.skltp.agp.test.consumer.AbstractTestConsumer;
 import se.skltp.agp.test.consumer.SoapHeaderCxfInterceptor;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
+import static se.skltp.aggregatingservices.riv.crm.requeststatus.RequestUtil.*;
 
 public class RequestActivitiesTestConsumer extends AbstractTestConsumer<GetRequestActivitiesResponderInterface> {
 
@@ -61,7 +62,7 @@ public class RequestActivitiesTestConsumer extends AbstractTestConsumer<GetReque
 		log.debug("Calling GetRequestActivities-soap-service with Registered Resident Id = {}", registeredResidentId);
 
 		GetRequestActivitiesType request = new GetRequestActivitiesType();
-		request.setSubjectOfCareId(registeredResidentId);
+		request.setPatientId(createII("",registeredResidentId));
 
 		GetRequestActivitiesResponseType response = _service.getRequestActivities(logicalAddress, request);
 		responseHolder.value = response;

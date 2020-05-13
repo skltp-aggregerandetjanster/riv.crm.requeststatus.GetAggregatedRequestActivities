@@ -25,8 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.ObjectFactory;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.ObjectFactory;
 import se.skltp.agp.riv.interoperability.headers.v1.ProcessingStatusType;
 import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.service.api.ResponseListFactory;

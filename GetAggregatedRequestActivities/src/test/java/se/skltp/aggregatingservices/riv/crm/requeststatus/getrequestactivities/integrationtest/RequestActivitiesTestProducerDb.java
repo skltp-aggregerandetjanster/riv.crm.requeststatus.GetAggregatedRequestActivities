@@ -22,9 +22,14 @@ package se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities.
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
-import riv.crm.requeststatus.v1.RequestActivityType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesResponseType;
+import riv.crm.requeststatus._2.AccessControlHeaderType;
+import riv.crm.requeststatus._2.AuthorType;
+import riv.crm.requeststatus._2.HeaderType;
+import riv.crm.requeststatus._2.RequestActivityBodyType;
+import riv.crm.requeststatus._2.RequestActivityType;
 import se.skltp.agp.test.producer.TestProducerDb;
+import static se.skltp.aggregatingservices.riv.crm.requeststatus.RequestUtil.*;
 
 public class RequestActivitiesTestProducerDb extends TestProducerDb {
 
@@ -50,18 +55,29 @@ public class RequestActivitiesTestProducerDb extends TestProducerDb {
 
 		RequestActivityType response = new RequestActivityType();
 
-		response.setCareUnit(logicalAddress);
-		response.setSubjectOfCareId(registeredResidentId);
-		response.setSenderRequestId(businessObjectId);
-		response.setReceiverRequestId("ReceiverRequestId");
-		response.setTypeOfRequest("TypeOfRequest");
-		response.setRequestMedium("RequestMedium");
-		response.setRequestIssuedByPersonName("RequestIssuedByPersonName");
-		response.setRequestIssuedByOrganizationalUnitId("RequestIssuedByOrganizationalUnitId");
-		response.setRequestIssuedByOrganizationalUnitDescription("RequestIssuedByOrganizationalUnitDescription");
-		response.setReceivingPersonName("ReceivingPersonName");
-		response.setReceivingOrganizationalUnitId("ReceivingOrganizationalUnitId");
-		response.setReceivingOrganizationalUnitDescription("ReceivingOrganizationalUnitDescription");
+		RequestActivityBodyType body = new RequestActivityBodyType();
+		response.setBody(body);
+		
+		HeaderType header = new HeaderType();
+		response.setHeader(header);
+		
+		AccessControlHeaderType ach = new AccessControlHeaderType();		
+		header.setAccessControlHeader(ach);
+		AuthorType author = new AuthorType();
+		header.setAuthor(author );
+		header.setSourceSystemId(createII("", logicalAddress));
+		
+		author.setName("The Author");
+		author.setTimestamp("20200101151300");
+		
+		ach.setOriginalPatientId(createII("", registeredResidentId));
+		ach.setAccountableCareGiver(createII("root","AccountableCareGiver"));
+		ach.setAccountableCareUnit(createII("root","AccountableCareUnit"));
+		ach.setApprovedForPatient(true);
+		ach.setCareProcessId(businessObjectId);
+		
+		body.setStatusCode(createCV("1.2.752.129.2.2.2.43", "7"));
+		body.setEventTime("20200115153000");
 
 		return response;
 	}

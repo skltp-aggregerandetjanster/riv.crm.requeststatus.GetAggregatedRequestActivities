@@ -24,11 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.apache.commons.lang.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
+import riv.crm.requeststatus._2.CVType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesType;
 import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 import se.skltp.agp.service.api.QueryObject;
@@ -59,8 +61,10 @@ public class RequestListFactoryImpl implements RequestListFactory {
 	public List<Object[]> createRequestList(QueryObject qo, FindContentResponseType src) {
 
 		GetRequestActivitiesType originalRequest = (GetRequestActivitiesType)qo.getExtraArg();
-		List<String> reqCategories = originalRequest.getTypeOfRequest();
-
+        String sourceSystemHSAId = null;
+        if(originalRequest.getSourceSystemHSAId() != null) 
+        	sourceSystemHSAId = originalRequest.getSourceSystemHSAId().getExtension();
+		
 		FindContentResponseType eiResp = (FindContentResponseType)src;
 		List<EngagementType> inEngagements = eiResp.getEngagement();
 
@@ -68,16 +72,13 @@ public class RequestListFactoryImpl implements RequestListFactory {
 
 		Map<String, List<String>> sourceSystem_pdlUnitList_map = new HashMap<String, List<String>>();
 
-		for (EngagementType inEng : inEngagements) {
-
-			// Filter
-			if (isCorrectCategory(reqCategories, inEng.getCategorization())) {
-
-				// Add pdlUnit to source system
-				log.debug("Add SS: {} for PDL unit: {}", inEng.getSourceSystem(), inEng.getLogicalAddress());
-				addPdlUnitToSourceSystem(sourceSystem_pdlUnitList_map, inEng.getSourceSystem(), inEng.getLogicalAddress());
-			}
-		}
+        for (EngagementType engagement : inEngagements) {
+            if (isPartOf(sourceSystemHSAId, engagement.getLogicalAddress())) {
+                // Add pdlUnit to source system
+                log.debug("Add source system: {} for PDL unit: {}", engagement.getSourceSystem(), engagement.getLogicalAddress());
+                addPdlUnitToSourceSystem(sourceSystem_pdlUnitList_map, engagement.getSourceSystem(), engagement.getLogicalAddress());
+            }
+        }
 
 		// Prepare the result of the transformation as a list of request-payloads,
 		// one payload for each unique logical-address (e.g. source system since we are using systemaddressing),
@@ -88,14 +89,12 @@ public class RequestListFactoryImpl implements RequestListFactory {
 
 			String sourceSystem = entry.getKey();
 
-			if (log.isInfoEnabled()) log.info("Calling source system using logical address {} for subject of care id {}", sourceSystem, originalRequest.getSubjectOfCareId());
+			if (log.isInfoEnabled()) log.info("Calling source system using logical address {} for subject of care id {}", sourceSystem, originalRequest.getPatientId().getExtension());
 
 			GetRequestActivitiesType request = new GetRequestActivitiesType();
-			request.setSubjectOfCareId(originalRequest.getSubjectOfCareId());
-			request.getCareUnitId().addAll(originalRequest.getCareUnitId());
-			request.setFromDate(originalRequest.getFromDate());
-			request.setToDate(originalRequest.getToDate());
-
+			request.setPatientId(originalRequest.getPatientId());
+			request.getCareUnitHSAId().addAll(originalRequest.getCareUnitHSAId());
+			request.setDatePeriod(originalRequest.getDatePeriod());
 			//For each careUnit found in EI, add all requestTypes from original request
 			request.getTypeOfRequest().addAll(originalRequest.getTypeOfRequest());
 
@@ -109,16 +108,13 @@ public class RequestListFactoryImpl implements RequestListFactory {
 		return reqList;
 	}
 
-	boolean isCorrectCategory(List<String> reqTypeOfRequestList,
-			String categorization) {
-
-		log.debug("Check if list of requested categories {} contains EI categorization {} ", reqTypeOfRequestList, categorization);
-
-		if(reqTypeOfRequestList == null || reqTypeOfRequestList.isEmpty()) return true;
-
-		return reqTypeOfRequestList.contains(categorization);
-	}
-
+    boolean isPartOf(String careUnitId, String careUnit) {
+        log.debug("Check careunit {} equals expected {}", careUnitId, careUnit);
+        if (StringUtils.isBlank(careUnitId))
+            return true;
+        return careUnitId.equals(careUnit);
+    }
+    
 	void addPdlUnitToSourceSystem(Map<String, List<String>> sourceSystem_pdlUnitList_map, String sourceSystem, String pdlUnitId) {
 		List<String> careUnitList = sourceSystem_pdlUnitList_map.get(sourceSystem);
 		if (careUnitList == null) {

@@ -34,18 +34,20 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.soitoolkit.commons.mule.util.ThreadSafeSimpleDateFormat;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesType;
 import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 import se.skltp.agp.riv.itintegration.engagementindex.v1.EngagementType;
 import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.service.api.RequestListFactory;
+import static se.skltp.aggregatingservices.riv.crm.requeststatus.RequestUtil.*;
 
 public class RequestListFactoryTest {
 
 	private static final String RONTGEN = "1";
 	private static final String LABB = "2";
 	private static final String ALLMAN = "4";
-	private static final String FYSIOLOG = "10";
+	
+	private static final String CATEGORIZATION = "req-act";
 
 	private static final ThreadSafeSimpleDateFormat df = new ThreadSafeSimpleDateFormat("YYYYMMDDhhmmss");
 
@@ -62,57 +64,16 @@ public class RequestListFactoryTest {
 	}
 
 	@Test
-	public void nullCategoryMeansAllCategoriesAreCorrect(){
-		boolean result = new RequestListFactoryImpl().isCorrectCategory(null, RONTGEN);
-		assertTrue(result);
-	}
-
-	@Test
-	public void emptyCategoryMeansAllCategoriesAreCorrect(){
-		List<String> reqTypeOfRequestList = new ArrayList<String>();
-		boolean result = new RequestListFactoryImpl().isCorrectCategory(reqTypeOfRequestList, RONTGEN);
-		assertTrue(result);
-	}
-
-	@Test
-	public void whenExactCorrectCategoryReturnTrue(){
-		List<String> reqTypeOfRequestList = Arrays.asList(RONTGEN);
-		boolean result = new RequestListFactoryImpl().isCorrectCategory(reqTypeOfRequestList, RONTGEN);
-		assertTrue(result);
-	}
-
-	@Test
-	public void atLeastOneCorrectCategoryReturnTrue(){
-		List<String> reqTypeOfRequestList = Arrays.asList(RONTGEN,LABB,ALLMAN,FYSIOLOG);
-		boolean result = new RequestListFactoryImpl().isCorrectCategory(reqTypeOfRequestList, RONTGEN);
-		assertTrue(result);
-	}
-
-	@Test
-	public void whenNoExactCorrectCategoryReturnFalse(){
-		List<String> reqTypeOfRequestList = Arrays.asList(LABB);
-		boolean result = new RequestListFactoryImpl().isCorrectCategory(reqTypeOfRequestList, RONTGEN);
-		assertFalse(result);
-	}
-
-	@Test
-	public void whenNoCorrectCategoryInListReturnFalse(){
-		List<String> reqTypeOfRequestList = Arrays.asList(LABB,ALLMAN,FYSIOLOG);
-		boolean result = new RequestListFactoryImpl().isCorrectCategory(reqTypeOfRequestList, RONTGEN);
-		assertFalse(result);
-	}
-
-	@Test
 	public void createRequestList(){
 		FindContentResponseType findContentResponse = new FindContentResponseType();
 		findContentResponse.getEngagement().add(createEngagement(TEST_LOGICAL_ADDRESS_1, "121212121212"));
 		findContentResponse.getEngagement().add(createEngagement(TEST_LOGICAL_ADDRESS_2, "121212121212"));
 
 		GetRequestActivitiesType originalRequest = new GetRequestActivitiesType();
-		originalRequest.setSubjectOfCareId("121212121212");
-		originalRequest.getCareUnitId().add("CAREUNITID_1");
-		originalRequest.getTypeOfRequest().add(FYSIOLOG);
-
+		originalRequest.setPatientId(createII("","121212121212"));
+		originalRequest.getCareUnitHSAId().add(createII("","CAREUNITID_1"));
+		originalRequest.getTypeOfRequest().add(createCV("1.2.752.129.2.2.2.24", LABB));
+		originalRequest.setDatePeriod(createDatePeriod("20200101", "20200102"));
 		QueryObject qo = new QueryObject(null, originalRequest);
 
 		List<Object[]> requestList = new RequestListFactoryImpl().createRequestList(qo, findContentResponse);
@@ -130,10 +91,10 @@ public class RequestListFactoryTest {
 	}
 
 	private void assertOriginalRequestParamsArePropagated(GetRequestActivitiesType originalRequest, GetRequestActivitiesType request) {
-		assertEquals(originalRequest.getCareUnitId().get(0), request.getCareUnitId().get(0));
-		assertEquals(originalRequest.getFromDate(), request.getFromDate());
-		assertEquals(originalRequest.getSubjectOfCareId(), request.getSubjectOfCareId());
-		assertEquals(originalRequest.getToDate(), request.getToDate());
+		assertEquals(originalRequest.getCareUnitHSAId().get(0).getExtension(), request.getCareUnitHSAId().get(0).getExtension());
+		assertEquals(originalRequest.getDatePeriod().getStart(), request.getDatePeriod().getStart());
+		assertEquals(originalRequest.getPatientId().getExtension(), request.getPatientId().getExtension());
+		assertEquals(originalRequest.getDatePeriod().getEnd(), request.getDatePeriod().getEnd());
 		assertEquals(originalRequest.getTypeOfRequest().get(0), request.getTypeOfRequest().get(0));
 	}
 
@@ -141,7 +102,7 @@ public class RequestListFactoryTest {
 		EngagementType engagement = new EngagementType();
 		engagement.setLogicalAddress(sourceSystem);
 		engagement.setSourceSystem(sourceSystem);
-		engagement.setCategorization(FYSIOLOG);
+		engagement.setCategorization(CATEGORIZATION);
 		engagement.setDataController("DATACONTROLLER");
 
 		engagement.setMostRecentContent(df.format(new Date()));

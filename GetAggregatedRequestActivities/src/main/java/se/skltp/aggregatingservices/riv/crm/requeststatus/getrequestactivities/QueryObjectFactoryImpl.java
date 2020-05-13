@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
 import org.w3c.dom.Node;
 
-import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
+import riv.crm.requeststatus.getrequestactivitiesresponder.v2.GetRequestActivitiesType;
 import se.skltp.agp.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentType;
 import se.skltp.agp.service.api.QueryObject;
 import se.skltp.agp.service.api.QueryObjectFactory;
@@ -39,7 +39,6 @@ public class QueryObjectFactoryImpl implements QueryObjectFactory {
 		this.eiServiceDomain = eiServiceDomain;
 	}
 
-	@SuppressWarnings("unused")
 	private String eiCategorization;
 	public void setEiCategorization(String eiCategorization) {
 		this.eiCategorization = eiCategorization;
@@ -48,7 +47,7 @@ public class QueryObjectFactoryImpl implements QueryObjectFactory {
 	/**
 	 * Transformerar GetRequestActivities request till EI FindContent request enligt:
 	 *
-	 * 1. subjectOfCareId --> registeredResidentIdentification
+	 * 1. getPatientId().getExtension()--> registeredResidentIdentification
 	 * 2. "riv:crm:requeststatus" --> serviceDomain
 	 */
 	@Override
@@ -56,16 +55,16 @@ public class QueryObjectFactoryImpl implements QueryObjectFactory {
 
 		GetRequestActivitiesType req = (GetRequestActivitiesType)ju.unmarshal(node);
 
-		if (log.isDebugEnabled()) log.debug("Transformed payload for pid: {}", req.getSubjectOfCareId());
+		if (log.isDebugEnabled()) log.debug("Transformed payload for pid: {}", req.getPatientId().getExtension());
 
 		FindContentType fc = new FindContentType();
-		fc.setRegisteredResidentIdentification(req.getSubjectOfCareId());
+		fc.setRegisteredResidentIdentification(req.getPatientId().getExtension());
 		fc.setServiceDomain(eiServiceDomain);
 
 		//A GetRequestActivities request can contain 0..* typeOfRequests, in previous
 		//version (1.0 RC3) it could only contain one. Therefore we need to request all
 		//typeOfRequests from EI and filter the FindContent response in RequestListFactoryImpl.
-		//fc.setCategorization(req.getTypeOfRequest());
+		fc.setCategorization(eiCategorization);
 
 		QueryObject qo = new QueryObject(fc, req);
 
