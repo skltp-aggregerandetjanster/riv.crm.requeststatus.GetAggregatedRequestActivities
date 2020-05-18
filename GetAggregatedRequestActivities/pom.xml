@@ -117,6 +117,7 @@ DON'T CHANGE THE CONTENT OF THIS COMMENT UNLESS YOU REALLY KNOW WHAT YOU ARE DOI
     <extensions>true</extensions>
     <!-- Include mule-dependencies that don't come with Mule 3.x otherwise we can't install to a vanilla Mule 3.x installation -->
     <configuration>
+     <finalName>GetAggregatedRequestActivities-2-${version}</finalName>
      <inclusions>
       <inclusion>
        <groupId>org.mule.modules</groupId>
