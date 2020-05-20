@@ -26,7 +26,7 @@
 	      <spring:list>
 	        <spring:value>classpath:GetAggregatedRequestActivities-config.properties</spring:value>
 	        <spring:value>classpath:agp-config-override.properties</spring:value>
-	        <spring:value>classpath:GetAggregatedRequestActivities-config-override.properties</spring:value>
+	        <spring:value>classpath:GetAggregatedRequestActivities-2-config-override.properties</spring:value>
 	      </spring:list>
 	    </spring:property>
 	  </spring:bean>
