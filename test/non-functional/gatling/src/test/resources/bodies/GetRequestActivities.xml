@@ -1,13 +1,13 @@
-<soapenv:Envelope
-      xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-      xmlns:urn="urn:riv:itintegration:registry:1"
-      xmlns:urn1="urn:riv:crm:requeststatus:GetRequestActivitiesResponder:1">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:riv:itintegration:registry:1" xmlns:urn1="urn:riv:crm:requeststatus:GetRequestActivitiesResponder:2" xmlns:urn2="urn:riv:crm:requeststatus:2">
    <soapenv:Header>
       <urn:LogicalAddress>5565594230</urn:LogicalAddress>
    </soapenv:Header>
    <soapenv:Body>
       <urn1:GetRequestActivities>
-        <urn1:subjectOfCareId>${patientid}</urn1:subjectOfCareId>
+         <urn1:patientId>
+            <urn2:root>1.2.3</urn2:root>
+            <urn2:extension>${patientid}</urn2:extension>
+         </urn1:patientId>
       </urn1:GetRequestActivities>
    </soapenv:Body>
 </soapenv:Envelope>
