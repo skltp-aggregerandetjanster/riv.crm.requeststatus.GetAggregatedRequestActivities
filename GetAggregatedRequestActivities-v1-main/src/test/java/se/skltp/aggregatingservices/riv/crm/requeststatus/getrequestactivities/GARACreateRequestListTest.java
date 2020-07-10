@@ -8,15 +8,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
 import se.skltp.aggregatingservices.api.AgpServiceFactory;
-import se.skltp.aggregatingservices.data.FindContentTestData;
 import se.skltp.aggregatingservices.riv.itintegration.engagementindex.findcontentresponder.v1.FindContentResponseType;
 import se.skltp.aggregatingservices.tests.CreateRequestListTest;
-import se.skltp.aggregatingservices.utility.RequestListUtil;
+import se.skltp.aggregatingservices.tests.TestDataUtil;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GARACreateRequestListTest extends CreateRequestListTest {
-  private FindContentTestData eiResponseDataHelper = new FindContentTestData();
-
   private static GARAAgpServiceConfiguration configuration = new GARAAgpServiceConfiguration();
   private static AgpServiceFactory<GetRequestActivitiesResponseType> agpServiceFactory = new GARAAgpServiceFactoryImpl();
   private static ServiceTestDataGenerator testDataGenerator = new ServiceTestDataGenerator();
@@ -26,17 +24,17 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
   }
 
   @Test
-  public void testCreateRequestListConcreteProducer() {
-    MessageContentsList messageContentsList = RequestListUtil.createRequest(new Object[]{"logiskAdress", this.testDataGenerator.createRequest("198611062384", "HSA-ID-2")});
-    FindContentResponseType eiResponse = eiResponseDataHelper.getResponseForPatient("198611062384");
+  public void testCreateRequestListSomeFilteredBySourceSystem() {
+    MessageContentsList messageContentsList = TestDataUtil.createRequest("logiskAdress", this.testDataGenerator.createRequest("198611062384", "HSA-ID-2"));
+    FindContentResponseType eiResponse = this.eiResponseDataHelper.getResponseForPatient("198611062384");
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
     Assert.assertEquals(3L, (long)requestList.size());
   }
 
   @Test
-  public void testCreateRequestListNoDataInEIForThisProducer() {
-    MessageContentsList messageContentsList = RequestListUtil.createRequest(new Object[]{"logiskAdress", this.testDataGenerator.createRequest("121212121212", "HSA-ID-2")});
-    FindContentResponseType eiResponse = eiResponseDataHelper.getResponseForPatient("121212121212");
+  public void testCreateRequestListAllFilteredBySourceSystem() {
+    MessageContentsList messageContentsList = TestDataUtil.createRequest("logiskAdress", this.testDataGenerator.createRequest("121212121212", "HSA-ID-2"));
+    FindContentResponseType eiResponse = this.eiResponseDataHelper.getResponseForPatient("121212121212");
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
     Assert.assertEquals(3L, (long)requestList.size());
   }
