@@ -59,8 +59,6 @@ public class ServiceTestDataGenerator extends TestDataGenerator {
 		request.setToDate("ÅÅÅÅMMDDttmmss");
 		request.getCareUnitId().add("CareUnit1");
 		request.getCareUnitId().add("CareUnit2");
-		request.getTypeOfRequest().add("TypeOfRequest1");
-		request.getTypeOfRequest().add("TypeOfRequest2");
 		return request;
 	}
 }

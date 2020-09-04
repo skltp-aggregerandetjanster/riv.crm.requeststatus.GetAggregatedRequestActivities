@@ -31,7 +31,6 @@ public static final String SCHEMA_PATH = "/schemas/TD_REQUESTSTATUS_1_0_1_R/inte
 
     // FindContent
     setEiServiceDomain("riv:crm:requeststatus");
-    setEiCategorization("1");
 
     // TAK
     setTakContract("urn:riv:crm:requeststatus:GetRequestActivitiesResponder:1");
@@ -39,6 +38,4 @@ public static final String SCHEMA_PATH = "/schemas/TD_REQUESTSTATUS_1_0_1_R/inte
     // Set service factory
     setServiceFactoryClass(GARAAgpServiceFactoryImpl.class.getName());
     }
-
-
 }
