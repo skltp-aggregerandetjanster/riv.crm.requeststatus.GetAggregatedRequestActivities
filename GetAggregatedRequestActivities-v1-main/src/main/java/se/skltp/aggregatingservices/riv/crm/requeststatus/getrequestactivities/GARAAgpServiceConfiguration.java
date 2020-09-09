@@ -31,6 +31,7 @@ public static final String SCHEMA_PATH = "/schemas/TD_REQUESTSTATUS_1_0_1_R/inte
 
     // FindContent
     setEiServiceDomain("riv:crm:requeststatus");
+    setEiCategorization("");
 
     // TAK
     setTakContract("urn:riv:crm:requeststatus:GetRequestActivitiesResponder:1");
