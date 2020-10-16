@@ -3,26 +3,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 <!--
-9027
+9006
 # default url - skltp-box; test only over http (no https)
 
 # PingForConfiguration
 mvn gatling:execute -PPingForConfiguration -DserviceLowercase=getaggregatedrequestactivities
-mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-dit-app02.sth.basefarm.net:9027/agp/getaggregatedrequestactivities/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedrequestactivities
-mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9027/agp/getaggregatedrequestactivities/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedrequestactivities
-mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9027/agp/getaggregatedrequestactivities/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedrequestactivities
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-dit-app02.sth.basefarm.net:9006/agp/getaggregatedrequestactivities/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedrequestactivities
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-tit-app02.sth.basefarm.net:9006/agp/getaggregatedrequestactivities/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedrequestactivities
+mvn gatling:execute -PPingForConfiguration -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9006/agp/getaggregatedrequestactivities/itintegration/monitoring/PingForConfiguration/1/rivtabp21 -DserviceLowercase=getaggregatedrequestactivities
 
 # HappyPath - testDuration in seconds
 mvn gatling:execute -PHappyPath -DtestDuration=7
-mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9027/GetAggregatedRequestActivities/service/v2 -DtestDuration=7 -Dsenderid=SE5565594230-BCQ
-mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9027/GetAggregatedRequestActivities/service/v2 -DnumberOfConcurrentUsers=3 -Dsenderid=SE5565594230-BCQ
-mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9027/GetAggregatedRequestActivities/service/v2 -DnumberOfConcurrentUsers=45 -DtestDuration=120 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9006/GetAggregatedRequestActivities/service/v1 -DtestDuration=7 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9006/GetAggregatedRequestActivities/service/v1 -DnumberOfConcurrentUsers=3 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PHappyPath -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9006/GetAggregatedRequestActivities/service/v1 -DnumberOfConcurrentUsers=45 -DtestDuration=120 -Dsenderid=SE5565594230-BCQ
 
 # Patients - testDuration in minutes
 mvn gatling:execute -PPatients -DtestDuration=1
-mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9027/GetAggregatedRequestActivities/service/v2 -DnumberOfConcurrentUsers=4 -DtestDuration=60 -Dsenderid=SE5565594230-BCQ
-mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9027/GetAggregatedRequestActivities/service/v2 -DpatientsFileName=patients-override.csv -Dsenderid=SE5565594230-BCQ
-mvn gatling:execute -PPatients -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9027/GetAggregatedRequestActivities/service/v2 -DtestDuration=720 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9006/GetAggregatedRequestActivities/service/v1 -DnumberOfConcurrentUsers=4 -DtestDuration=60 -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-tit-app05.sth.basefarm.net:9006/GetAggregatedRequestActivities/service/v1 -DpatientsFileName=patients-override.csv -Dsenderid=SE5565594230-BCQ
+mvn gatling:execute -PPatients -DbaseUrl=http://ine-sit-app03.sth.basefarm.net:9006/GetAggregatedRequestActivities/service/v1 -DtestDuration=720 -Dsenderid=SE5565594230-BCQ
 
 -->
 
