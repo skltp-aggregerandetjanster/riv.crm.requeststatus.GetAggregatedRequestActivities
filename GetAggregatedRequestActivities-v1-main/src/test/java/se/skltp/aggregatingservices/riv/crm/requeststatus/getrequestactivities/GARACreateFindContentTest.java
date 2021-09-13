@@ -1,13 +1,14 @@
 package se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
 import se.skltp.aggregatingservices.api.AgpServiceFactory;
 import se.skltp.aggregatingservices.tests.CreateFindContentTest;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
 public class GARACreateFindContentTest extends CreateFindContentTest {
 
   private static GARAAgpServiceConfiguration configuration = new GARAAgpServiceConfiguration();
