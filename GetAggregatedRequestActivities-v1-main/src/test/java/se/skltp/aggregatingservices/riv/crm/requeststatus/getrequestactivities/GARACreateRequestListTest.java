@@ -1,11 +1,10 @@
 package se.skltp.aggregatingservices.riv.crm.requeststatus.getrequestactivities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import org.apache.cxf.message.MessageContentsList;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.junit.jupiter.api.Test;
 import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesResponseType;
 import riv.crm.requeststatus.getrequestactivitiesresponder.v1.GetRequestActivitiesType;
 import se.skltp.aggregatingservices.api.AgpServiceFactory;
@@ -14,7 +13,10 @@ import se.skltp.aggregatingservices.tests.CreateRequestListTest;
 import se.skltp.aggregatingservices.tests.TestDataUtil;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
 public class GARACreateRequestListTest extends CreateRequestListTest {
 
   private static final String RONTGEN = "1";
@@ -35,7 +37,7 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
     MessageContentsList messageContentsList = TestDataUtil.createRequest("logiskAdress", this.testDataGenerator.createRequest("198611062384", "HSA-ID-2"));
     FindContentResponseType eiResponse = this.eiResponseDataHelper.getResponseForPatient("198611062384");
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
-    Assert.assertEquals(3L, (long)requestList.size());
+    assertEquals(3L, (long)requestList.size());
   }
 
   @Test
@@ -43,7 +45,7 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
     MessageContentsList messageContentsList = TestDataUtil.createRequest("logiskAdress", this.testDataGenerator.createRequest("121212121212", "HSA-ID-2"));
     FindContentResponseType eiResponse = this.eiResponseDataHelper.getResponseForPatient("121212121212");
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
-    Assert.assertEquals(3L, (long)requestList.size());
+    assertEquals(3L, (long)requestList.size());
   }
 
   @Test
@@ -62,7 +64,7 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
     eiResponse.getEngagement().get(2).setCategorization(ALLMAN);
 
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
-    Assert.assertEquals(2L, (long) requestList.size());
+    assertEquals(2L, (long) requestList.size());
   }
 
   @Test
@@ -80,7 +82,7 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
     eiResponse.getEngagement().get(2).setCategorization(ALLMAN);
 
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
-    Assert.assertEquals(0L, (long) requestList.size());
+    assertEquals(0L, (long) requestList.size());
   }
 
   @Test
@@ -97,7 +99,7 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
     eiResponse.getEngagement().get(2).setCategorization(ALLMAN);
 
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
-    Assert.assertEquals(3L, (long) requestList.size());
+    assertEquals(3L, (long) requestList.size());
   }
 
   @Test
@@ -114,7 +116,7 @@ public class GARACreateRequestListTest extends CreateRequestListTest {
 
 
     List<MessageContentsList> requestList = this.agpServiceFactory.createRequestList(messageContentsList, eiResponse);
-    Assert.assertEquals(0L, (long) requestList.size());
+    assertEquals(0L, (long) requestList.size());
   }
 
 }
