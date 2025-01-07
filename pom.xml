@@ -9,7 +9,7 @@
   </parent>
   <groupId>se.skltp.aggregatingservices.riv.crm.requeststatus</groupId>
   <artifactId>GetAggregatedRequestActivities-v1</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1</version>
   <packaging>pom</packaging>
   <name>GetAggregatedRequestActivities-v1</name>
   <modules>
